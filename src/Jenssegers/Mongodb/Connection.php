@@ -1,7 +1,7 @@
 <?php namespace Jenssegers\Mongodb;
 
 use Jenssegers\Mongodb\Query\Builder as QueryBuilder;
-use MongoClient;
+use Mongo;
 
 class Connection extends \Illuminate\Database\Connection {
 
@@ -13,7 +13,7 @@ class Connection extends \Illuminate\Database\Connection {
     protected $db;
 
     /**
-     * The MongoClient connection handler.
+     * The Mongo connection handler.
      *
      * @var resource
      */
@@ -98,9 +98,9 @@ class Connection extends \Illuminate\Database\Connection {
     }
 
     /**
-     * return MongoClient object
+     * return Mongo object
      *
-     * @return MongoClient
+     * @return Mongo
      */
     public function getMongoClient()
     {
@@ -108,12 +108,12 @@ class Connection extends \Illuminate\Database\Connection {
     }
 
     /**
-     * Create a new MongoClient connection.
+     * Create a new Mongo connection.
      *
      * @param  string  $dsn
      * @param  array   $config
      * @param  array   $options
-     * @return MongoClient
+     * @return Mongo
      */
     protected function createConnection($dsn, array $config, array $options)
     {
@@ -129,7 +129,7 @@ class Connection extends \Illuminate\Database\Connection {
             $options['password'] = $config['password'];
         }
 
-        return new MongoClient($dsn, $options);
+        return new Mongo($dsn, $options);
     }
 
     /**
@@ -142,7 +142,7 @@ class Connection extends \Illuminate\Database\Connection {
     {
         // First we will create the basic DSN setup as well as the port if it is in
         // in the configuration options. This will give us the basic DSN we will
-        // need to establish the MongoClient and return them back for use.
+        // need to establish the Mongo and return them back for use.
         extract($config);
 
         // Treat host option as array of hosts
